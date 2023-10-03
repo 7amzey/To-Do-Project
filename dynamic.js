@@ -1,22 +1,28 @@
+// Check if there's any task in local storage
 if(localStorage.getItem("num")){
      window.num  =localStorage.getItem("num");
 }else{
     window.num = 0;
 }
+
+// Define global variables
 let toggle = document.getElementById("btn-check-4");
 let submit_btn = document.getElementById("button-addon1");
 let input = document.getElementById("input");
 
+// Add event listener to add task button & switch theme button
 document.addEventListener("DOMContentLoaded", () => {
     submit_btn.addEventListener("click", () => addItem());
     toggle.addEventListener("click", () => darkTheme());
 
 })
 
+// Function to switch themes
 function darkTheme(){
     let body = document.querySelector("body");
     let li = document.getElementsByTagName("li");
 
+    // Check if the button is clicked to turn dark theme on
     if(toggle.checked == true){
         toggle.setAttribute("checked", "true");
         body.setAttribute("class", "bg-dark");
@@ -27,7 +33,9 @@ function darkTheme(){
         submit_btn.setAttribute("class", "btn btn-outline-secondary border-2");
         input.setAttribute("class", "form-control border-secondary border-2");
         saveTheme();
-    }else{
+    }
+    // Otherwise it will turn the light theme on
+    else{
         toggle.removeAttribute("checked");
         body.setAttribute("class", "bg-white");
         for(let i=0; i<li.length; i++){
@@ -42,11 +50,14 @@ function darkTheme(){
 
 
 
-
+// Function that responsible of add tasks dynamically
 function addItem(){
+    // Check if tasks input is empty
     if(input.value==""){
         alert("You must add some text!");
-    }else{
+    }
+    // Otherwise it will add the task
+    else{
         let li = document.createElement("li");
         if(toggle.checked){
             li.setAttribute("class", "list-group-item border-2 border-secondary mt-2 bg-dark");
@@ -83,6 +94,7 @@ function addItem(){
     input.value = ""
 }
 
+// Function to check completed tasks "Accept ID as argument" "ID will be the key to what task to check"
 function checkTask(id){
     let lis = document.querySelector(`[data-task-id="${id}"]`);
     let content = lis.getElementsByTagName("label")[0];
@@ -91,6 +103,7 @@ function checkTask(id){
     let checkedList = document.getElementById("checkedList");
     let list = document.getElementById("list");
 
+    // Check weather task is checked or not
     if(checkbox.checked == true){
         checkbox.setAttribute("checked", "true");
         del.innerHTML = content.textContent;
@@ -107,12 +120,7 @@ function checkTask(id){
     }
 }
 
-function removeTask(id){
-    let task = document.querySelector(`[data-task-id="${id}"]`);
-    task.remove();
-    saveLists();
-}
-
+// Function to save last theme used to local storage for next visit
 function saveTheme(){
     if(toggle.hasAttribute("checked")){
         localStorage.setItem("dark", "true");
@@ -121,6 +129,7 @@ function saveTheme(){
     }
 }
 
+// Function to retrieve last theme used in older visits
 function showTheme(){
     if(localStorage.getItem("dark") == "true"){
         toggle.setAttribute("checked", "true");
@@ -132,6 +141,7 @@ function showTheme(){
     }
 }
 
+// Function to save tasks in local storage for next visits 
 function saveLists(){
     localStorage.setItem("num", num);
     let tasks = document.getElementsByTagName("li");
@@ -159,6 +169,7 @@ function saveLists(){
 
 }
 
+// Function to show all tasks 
 function showLists(){
     let checkedList = document.getElementById("checkedList");
     let uncheckList = document.getElementById("list");
@@ -177,5 +188,6 @@ function showLists(){
     }
 }
 
+// return all tasks and last theme used when page is visited
 showLists();
 showTheme();
