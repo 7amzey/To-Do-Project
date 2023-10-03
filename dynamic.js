@@ -1,5 +1,5 @@
 // Check if there's any task in local storage
-if(localStorage.getItem("num")){
+if(localStorage.getItem("num") !== null){
      window.num  =localStorage.getItem("num");
 }else{
     window.num = 0;
