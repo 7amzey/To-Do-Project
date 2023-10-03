@@ -1,0 +1,23 @@
+$main-color: #092242;
+
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/mixins";
+
+$custom-theme-color: (
+    "main": $main-color,
+);
+
+$theme-colors: map-merge($custom-theme-color, $theme-colors);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+
+#header, #sub-header{
+    font-family: Koulen, cursive;
+}
+
+#input{
+    outline: none;
+    box-shadow: none;
+}
